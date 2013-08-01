@@ -17,7 +17,8 @@ namespace :npm do
   DESC
   task :install, :roles => :app, :except => { :no_release => true } do
     prefix = fetch(:use_nave, false) ? "#{fetch(:nave_dir)}/nave.sh use #{fetch(:node_version, 'stable')}" : ''
-    run("cd #{latest_release} && #{prefix} #{fetch(:npm_cmd, "npm")} install")
+    suffix = fetch(:npm_quiet, false) ? '--quiet' : '';
+    run("cd #{latest_release} && #{prefix} #{fetch(:npm_cmd, "npm")} install #{suffix}")
   end
 end
 
